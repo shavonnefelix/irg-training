@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRG Harassment Prevention Training</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+.hidden{display:none!important}
+.topbar{background:#fff;border:1px solid #e0e0dd;border-radius:12px;padding:13px 18px;display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.logo{width:36px;height:36px;border-radius:8px;background:#1D9E75;color:#fff;font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tb1{font-size:14px;font-weight:600;color:#1a1a1a}
+.tb2{font-size:12px;color:#888}
+.card{background:#fff;border:1px solid #e0e0dd;border-radius:12px;padding:22px;margin-bottom:12px}
+.prog{height:5px;background:#eee;border-radius:3px;margin-bottom:14px}
+.prog-f{height:5px;background:#1D9E75;border-radius:3px;transition:width .4s}
+.badge{display:inline-block;background:#E1F5EE;color:#085041;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+.mod-title{font-size:19px;font-weight:700;color:#1a1a1a;margin-bottom:5px}
+.desc{font-size:13px;color:#555;line-height:1.6}
+.vid-wrap{position:relative;padding-bottom:56.25%;height:0;margin:16px 0;border-radius:10px;overflow:hidden;border:1px solid #ddd}
+.vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.qlabel{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin:20px 0 12px}
+.qblock{margin-bottom:18px}
+.qt{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:10px;line-height:1.5}
+.opt{display:block;width:100%;text-align:left;padding:10px 13px;margin-bottom:6px;border:1px solid #ccc;border-radius:8px;background:#fff;font-size:13px;font-family:inherit;cursor:pointer;color:#1a1a1a;transition:background .1s}
+.opt:hover:not([disabled]){background:#f5f5f3;border-color:#aaa}
+.opt.correct{background:#E1F5EE!important;border-color:#1D9E75!important;color:#085041!important;font-weight:600}
+.opt.wrong{background:#FCEBEB!important;border-color:#A32D2D!important;color:#791F1F!important;font-weight:600}
+.opt[disabled]{cursor:default}
+.fb{font-size:13px;padding:8px 12px;border-radius:8px;display:none;margin-top:3px;line-height:1.5}
+.fb.show{display:block}
+.fb.correct{background:#E1F5EE;color:#085041;border:1px solid #9FE1CB}
+.fb.wrong{background:#FCEBEB;color:#791F1F;border:1px solid #F7C1C1}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid #eee;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;background:#1D9E75;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn:hover{background:#0F6E56}
+.btn:disabled{background:#ccc;color:#888;cursor:not-allowed}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.dot{width:26px;height:26px;border-radius:50%;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:11px;color:#aaa;font-weight:600}
+.dot.done{background:#1D9E75;color:#fff;border-color:#1D9E75}
+.dot.active{border:2px solid #1D9E75;color:#1D9E75;font-weight:700}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:20px}
+.mc{background:#f9f9f7;border:1px solid #e5e5e2;border-radius:9px;padding:11px 13px}
+.mc strong{display:block;font-size:11px;font-weight:700;color:#1D9E75;text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px}
+.mc span{font-size:12px;color:#666}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:13px;font-weight:600;color:#444;margin-bottom:4px}
+.fg input{width:100%;padding:9px 12px;font-size:13px;border:1px solid #ccc;border-radius:8px;font-family:inherit;outline:none;background:#fff;color:#1a1a1a}
+.fg input:focus{border-color:#1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.12)}
+.fg input.err{border-color:#c0392b}
+.errmsg{font-size:12px;color:#c0392b;margin-top:3px;display:none}
+.errmsg.show{display:block}
+.eq{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #eee}
+.eq:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.eq-num{font-size:11px;color:#bbb;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+.sring{width:100px;height:100px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px}
+.sring.pass{background:#E1F5EE;border:3px solid #1D9E75}
+.sring.fail{background:#FCEBEB;border:3px solid #A32D2D}
+.sn{font-size:28px;font-weight:700;line-height:1}
+.sring.pass .sn{color:#085041}
+.sring.fail .sn{color:#791F1F}
+.sd{font-size:13px;color:#888}
+.retake{background:#FFF8E1;border:1px solid #F5C842;border-radius:9px;padding:14px 16px;font-size:13px;color:#7A5800;line-height:1.6;margin-bottom:16px}
+.retake strong{display:block;font-size:14px;margin-bottom:3px}
+.bki{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f0ee}
+.bki:last-child{border-bottom:none}
+.bkic{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.bkic.p{background:#E1F5EE;color:#085041}
+.bkic.f{background:#FCEBEB;color:#791F1F}
+.bkq{font-size:13px;color:#1a1a1a;line-height:1.5}
+.bka{font-size:12px;color:#085041;margin-top:2px}
+.sbox{padding:12px 14px;border-radius:8px;font-size:13px;margin-top:10px}
+.sbox.sending{background:#EEF4FF;color:#1a3a9a;border:1px solid #b0c8f5}
+.sbox.ok{background:#E1F5EE;color:#085041;border:1px solid #9FE1CB}
+.sbox.fail{background:#FCEBEB;color:#791F1F;border:1px solid #F7C1C1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="pg-welcome">
+  <div class="topbar"><div class="logo">IRG</div><div><div class="tb1">Respectful Workplace &amp; Harassment Prevention</div><div class="tb2">Manager Training — 6 Modules + Final Exam</div></div></div>
+  <div class="card">
+    <div style="text-align:center;padding:20px 0 16px">
+      <div style="font-size:44px;margin-bottom:12px">🛡️</div>
+      <div style="font-size:21px;font-weight:700;color:#1a1a1a;margin-bottom:8px">Manager Harassment Prevention Training</div>
+      <p style="font-size:14px;color:#555;line-height:1.7;max-width:460px;margin:0 auto 22px">Complete all 6 modules then take the 20-question final exam. A score of 16 out of 20 (80%) is required to pass.</p>
+      <div class="mgrid">
+        <div class="mc"><strong>Module 1</strong><span>Why this training matters</span></div>
+        <div class="mc"><strong>Module 2</strong><span>Harassment vs. bullying</span></div>
+        <div class="mc"><strong>Module 3</strong><span>Types of harassment</span></div>
+        <div class="mc"><strong>Module 4</strong><span>Who can harass</span></div>
+        <div class="mc"><strong>Module 5</strong><span>Legal responsibilities</span></div>
+        <div class="mc"><strong>Module 6</strong><span>How to respond</span></div>
+      </div>
+    </div>
+    <div style="max-width:400px;margin:0 auto">
+      <div class="fg"><label>Full name *</label><input type="text" id="i-name" placeholder="Jane Smith"><div class="errmsg" id="e-name">Please enter your full name.</div></div>
+      <div class="fg"><label>Email address *</label><input type="email" id="i-email" placeholder="jane@irghospitality.com"><div class="errmsg" id="e-email">Please enter a valid email.</div></div>
+      <div class="fg"><label>Location / restaurant *</label><input type="text" id="i-loc" placeholder="e.g. Downtown Austin"><div class="errmsg" id="e-loc">Please enter your location.</div></div>
+      <div class="fg"><label>Position / title *</label><input type="text" id="i-pos" placeholder="e.g. General Manager"><div class="errmsg" id="e-pos">Please enter your position.</div></div>
+      <div style="text-align:center;margin-top:20px"><button class="btn" id="begin-btn">Begin Training &rarr;</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="pg-module" class="hidden">
+  <div class="topbar"><div class="logo">IRG</div><div><div class="tb1" id="m-title"></div><div class="tb2" id="m-sub"></div></div></div>
+  <div class="prog"><div class="prog-f" id="m-prog" style="width:0%"></div></div>
+  <div class="dots" id="m-dots"></div>
+  <div class="card" id="m-body"></div>
+</div>
+
+<div id="pg-exam" class="hidden">
+  <div class="topbar"><div class="logo">IRG</div><div><div class="tb1">Final Exam</div><div class="tb2">20 questions — 16 correct to pass (80%)</div></div></div>
+  <div class="prog"><div class="prog-f" style="width:100%"></div></div>
+  <div class="card"><div class="badge">Final Exam</div><div class="mod-title">Knowledge Assessment</div><p class="desc" style="margin-top:6px">Answer all 20 questions. Your answer locks the moment you click. Your full score and breakdown appear at the end.</p></div>
+  <div class="card" id="exam-body"></div>
+  <div class="card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div id="exam-tally" style="font-size:13px;color:#888;font-weight:500">0 of 20 answered</div>
+    <button class="btn" id="exam-submit" disabled>Submit Exam &rarr;</button>
+  </div>
+</div>
+
+<div id="pg-result" class="hidden">
+  <div class="topbar"><div class="logo">IRG</div><div><div class="tb1">Exam Results</div><div class="tb2" id="r-who"></div></div></div>
+  <div class="card" style="text-align:center;padding:28px 20px">
+    <div class="sring" id="r-ring"><span class="sn" id="r-score">0</span><span class="sd">/20</span></div>
+    <div style="font-size:20px;font-weight:700;color:#1a1a1a;margin-bottom:8px" id="r-title"></div>
+    <div style="font-size:14px;color:#555;line-height:1.7;max-width:440px;margin:0 auto 16px" id="r-msg"></div>
+    <div id="r-retake"></div>
+    <div id="r-status" class="hidden"></div>
+  </div>
+  <div class="card"><div style="font-size:11px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Score Breakdown</div><div id="r-breakdown"></div></div>
+</div>
+
+</div>
+<script>
+(function(){
+var MODS=[
+  {title:"Module 1",sub:"Why this training matters",desc:"Harassment prevention is leadership. Explore how workplace culture starts with managers and why your response to concerns shapes your team.",
+  loom:"1ceaaf45f4f545cb9acf00762ae910af",
+  qs:[
+    {q:"Harassment prevention is primarily about:",a:["Avoiding lawsuits","Completing annual training requirements","Creating a workplace where employees feel safe, respected, and supported","Improving scheduling practices"],c:2},
+    {q:"According to the training, people most often leave restaurants because:",a:["The work is too physically demanding","The restaurant is too busy","They don't like their coworkers","They feel unsupported or work in a toxic environment"],c:3},
+    {q:"Harassment only affects the individuals directly involved.",a:["True","False"],c:1}
+  ]},
+  {title:"Module 2",sub:"Harassment vs. bullying & warning signs",desc:"Learn the difference between harassment and bullying, what protected characteristics are, why intent vs. impact matters, and how to spot warning signs.",
+  loom:"3b13d19f76544de8af6a5c8ded1bb9ab",
+  qs:[
+    {q:"Harassment always involves conduct connected to:",a:["A scheduling conflict","A protected characteristic","A personality disagreement","A performance issue"],c:1},
+    {q:"An employee says 'I was only joking' after making a comment that embarrassed a coworker. What should a manager focus on?",a:["Whether the employee thought it was funny","Whether the employee intended to offend","The impact the behavior had on the workplace","Whether other employees laughed"],c:2},
+    {q:"Which of the following may be considered a warning sign that a workplace issue is developing?",a:["An employee suddenly avoiding certain coworkers","Repeated jokes directed at the same person","A team member becoming withdrawn","All of the above"],c:3}
+  ]},
+  {title:"Module 3",sub:"Types of harassment",desc:"Explore verbal, visual/digital, and physical harassment and how each shows up in a restaurant environment.",
+  loom:"372e6427ab8f43afbe73bd956180be59",
+  qs:[
+    {q:"Which of the following is an example of verbal harassment?",a:["Sharing an inappropriate meme","Repeated comments about a coworker's appearance after they expressed discomfort","Accidentally bumping into someone during a busy shift","Changing someone's schedule"],c:1},
+    {q:"Which of the following may be considered visual or digital harassment?",a:["Sharing sexual memes in a work group chat","Giving performance feedback","Asking an employee to complete side work","Updating a schedule"],c:0},
+    {q:"Which statement is true regarding physical harassment?",a:["Physical harassment only exists if someone is injured","Physical harassment can include unwanted touching, cornering, or invading personal space","Physical harassment only occurs between managers and employees","Physical harassment must be intentional to be a concern"],c:1}
+  ]},
+  {title:"Module 4",sub:"Who can harass & workplace boundaries",desc:"Harassment can come from coworkers, managers, vendors, or guests. Learn your responsibility when guests behave inappropriately.",
+  loom:"591358813bf842598ea54352b035bb6d",
+  qs:[
+    {q:"Employees are protected from harassment by:",a:["Coworkers only","Managers only","Guests only","Anyone they interact with in the workplace"],c:3},
+    {q:"A guest repeatedly makes inappropriate comments toward a server. What should a manager do?",a:["Ignore it if the guest is spending money","Tell the employee to tolerate it for tips","Take the concern seriously and address the situation","Wait for HR to speak with the guest"],c:2},
+    {q:"True or False: Conduct outside of work hours can never become a workplace concern.",a:["True","False"],c:1}
+  ]},
+  {title:"Module 5",sub:"Legal responsibilities & retaliation",desc:"Understand your legal obligations, what 'should have known' means, and why retaliation is prohibited even without a proven policy violation.",
+  loom:"c16aa207993a48a9adc7bb14f283b93c",
+  qs:[
+    {q:"What does 'should have known' mean for managers?",a:["Managers are only responsible for conduct they personally witness","Managers may be expected to recognize obvious warning signs and repeated inappropriate behavior","Managers are responsible only after receiving a written complaint","Managers can ignore behavior if employees appear comfortable"],c:1},
+    {q:"Which of the following may be considered retaliation?",a:["Conducting an investigation","Providing annual training","Reducing an employee's hours shortly after they report harassment","Asking HR for guidance"],c:2},
+    {q:"True or False: An employee must prove harassment occurred to be protected from retaliation.",a:["True","False"],c:1}
+  ]},
+  {title:"Module 6",sub:"How to respond — CARED framework",desc:"Learn what to do when someone brings you a concern and how to use CARED: Create a Distraction, Ask Then Help, Refer to Authority, Enlist Others, Document.",
+  loom:"c89c85b04f4d486b885f6adcba9baebd",
+  qs:[
+    {q:"Managers should wait for a formal complaint before acting.",a:["True","False"],c:1},
+    {q:"An employee reports possible harassment to you. What should you do first?",a:["Decide whether the complaint is valid","Tell them to handle it themselves","Listen, take the concern seriously, and report it appropriately","Promise complete secrecy"],c:2},
+    {q:"What does the 'R' in CARED stand for?",a:["Review","Report","Refer to Authority","Respond"],c:2}
+  ]}
+];
+var EXAM=[
+  {q:"Harassment prevention is primarily about:",a:["Avoiding lawsuits","Completing annual training requirements","Creating a workplace where employees feel safe, respected, and supported","Improving scheduling practices"],c:2},
+  {q:"According to the training, people most often leave restaurants because:",a:["The work is too physically demanding","The restaurant is too busy","They don't like their coworkers","They feel unsupported or work in a toxic environment"],c:3},
+  {q:"Harassment only affects the individuals directly involved.",a:["True","False"],c:1},
+  {q:"Which of the following is an example of a protected characteristic?",a:["Personality type","Work ethic","Religion","Communication style"],c:2},
+  {q:"What is the primary difference between harassment and bullying?",a:["Harassment is connected to a protected characteristic","Bullying is illegal and harassment is not","Bullying only occurs between managers and employees","There is no difference"],c:0},
+  {q:"When evaluating workplace behavior, managers should focus primarily on:",a:["Intent","Impact","Seniority","Length of employment"],c:1},
+  {q:"Which of the following may be considered a warning sign of workplace harassment?",a:["Repeated jokes directed at the same employee","Employee withdrawal from coworkers","Increased team conflict","All of the above"],c:3},
+  {q:"Which type of harassment includes offensive comments, slurs, stereotypes, or repeated inappropriate remarks?",a:["Physical Harassment","Verbal Harassment","Digital Harassment","Retaliation"],c:1},
+  {q:"Sharing an inappropriate meme in a work group chat may be considered:",a:["Physical harassment","Scheduling misconduct","Visual or digital harassment","Retaliation"],c:2},
+  {q:"Which of the following may be considered physical harassment?",a:["Unwanted touching","Cornering someone","Blocking movement","All of the above"],c:3},
+  {q:"Harassment must be sexual in nature to violate company policy.",a:["True","False"],c:1},
+  {q:"Employees are protected from harassment by:",a:["Coworkers only","Managers only","Guests only","Anyone they interact with in the workplace"],c:3},
+  {q:"A guest repeatedly makes inappropriate comments to a server. What should a manager do?",a:["Ignore it if the guest is spending money","Tell the employee to tolerate it for tips","Take the concern seriously and address it","Wait until the employee files a written complaint"],c:2},
+  {q:"Conduct outside of work can never become a workplace concern.",a:["True","False"],c:1},
+  {q:"What does 'should have known' mean for managers?",a:["Managers are only responsible for conduct they personally witness","Managers may be expected to recognize obvious warning signs and repeated inappropriate behavior","Managers are only responsible after receiving a written complaint","Managers can ignore conduct if employees don't complain"],c:1},
+  {q:"Which of the following may be considered retaliation?",a:["Conducting an investigation","Providing annual training","Reducing an employee's hours after they report harassment","Consulting HR"],c:2},
+  {q:"An employee must prove harassment occurred to be protected from retaliation.",a:["True","False"],c:1},
+  {q:"When an employee reports a concern, a manager's first responsibility is to:",a:["Decide whether the complaint is valid","Listen, take the concern seriously, and report it appropriately","Promise complete secrecy","Determine discipline immediately"],c:1},
+  {q:"What does the 'R' in the CARED framework stand for?",a:["Respond","Report","Refer to Authority","Review"],c:2},
+  {q:"Which of the following should be included in documentation?",a:["Personal opinions","Assumptions about intent","Rumors from coworkers","Who, what, when, where, witnesses, and actions taken"],c:3}
+];
+
+var curMod=0,qAns=[],eAns={},user={};
+function g(id){return document.getElementById(id);}
+function showPg(id){['pg-welcome','pg-module','pg-exam','pg-result'].forEach(function(p){g(p).classList.add('hidden');});g(id).classList.remove('hidden');window.scrollTo(0,0);}
+
+g('begin-btn').addEventListener('click',function(){
+  var n=g('i-name').value.trim(),e=g('i-email').value.trim(),l=g('i-loc').value.trim(),p=g('i-pos').value.trim(),ok=true;
+  function chk(v,iid,eid,fn){if(!fn(v)){g(iid).classList.add('err');g(eid).classList.add('show');ok=false;}else{g(iid).classList.remove('err');g(eid).classList.remove('show');}}
+  chk(n,'i-name','e-name',function(v){return v.length>1;});
+  chk(e,'i-email','e-email',function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);});
+  chk(l,'i-loc','e-loc',function(v){return v.length>0;});
+  chk(p,'i-pos','e-pos',function(v){return v.length>0;});
+  if(!ok)return;
+  user={name:n,email:e,loc:l,pos:p};
+  curMod=0;qAns=new Array(MODS[0].qs.length).fill(null);
+  showPg('pg-module');renderMod();
+});
+
+function renderMod(){
+  var m=MODS[curMod];
+  g('m-title').textContent=m.title+' of '+MODS.length;
+  g('m-sub').textContent=m.sub;
+  g('m-prog').style.width=Math.round((curMod/MODS.length)*100)+'%';
+  var dh='';for(var i=0;i<MODS.length;i++)dh+='<div class="dot'+(i<curMod?' done':i===curMod?' active':'')+'">'+(i+1)+'</div>';
+  g('m-dots').innerHTML=dh;
+  var allDone=qAns.every(function(a){return a!==null;}),isLast=curMod===MODS.length-1,cnt=qAns.filter(function(a){return a!==null;}).length;
+  var b='<div class="badge">'+m.title+'</div><div class="mod-title">'+m.sub+'</div><p class="desc" style="margin-top:5px">'+m.desc+'</p>';
+  b+='<div class="vid-wrap"><iframe src="https://www.loom.com/embed/'+m.loom+'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
+  b+='<div class="qlabel">Module Knowledge Check</div>';
+  for(var qi=0;qi<m.qs.length;qi++){
+    var q=m.qs[qi],ans=qAns[qi]!==null;
+    b+='<div class="qblock"><div class="qt">'+(qi+1)+'. '+q.q+'</div>';
+    for(var ai=0;ai<q.a.length;ai++){
+      var cls='opt';if(ans){if(ai===q.c)cls+=' correct';else if(ai===qAns[qi])cls+=' wrong';}
+      b+='<button class="'+cls+'" data-qi="'+qi+'" data-ai="'+ai+'"'+(ans?' disabled':'')+'>'+q.a[ai]+'</button>';
+    }
+    if(ans){var co=qAns[qi]===q.c;b+='<div class="fb show '+(co?'correct':'wrong')+'">'+(co?'✓ Correct!':'✗ Not quite. Correct answer: <strong>'+q.a[q.c]+'</strong>')+'</div>';}
+    b+='</div>';
+  }
+  b+='<div class="navrow"><div style="font-size:13px;color:#999">'+cnt+' of '+m.qs.length+' answered</div><button class="btn" id="nxt"'+(allDone?'':' disabled')+'>'+(isLast?'Proceed to Final Exam &rarr;':'Next Module &rarr;')+'</button></div>';
+  g('m-body').innerHTML=b;
+  g('m-body').querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var qi2=+this.dataset.qi,ai2=+this.dataset.ai;
+      if(qAns[qi2]!==null)return;qAns[qi2]=ai2;renderMod();
+    });
+  });
+  g('nxt').addEventListener('click',function(){
+    if(isLast){showPg('pg-exam');buildExam();}
+    else{curMod++;qAns=new Array(MODS[curMod].qs.length).fill(null);showPg('pg-module');renderMod();}
+  });
+}
+
+function buildExam(){
+  eAns={};var h='';
+  for(var i=0;i<EXAM.length;i++){
+    h+='<div class="eq"><div class="eq-num">Question '+(i+1)+' of 20</div><div class="qt">'+EXAM[i].q+'</div>';
+    for(var j=0;j<EXAM[i].a.length;j++)h+='<button class="opt" data-ei="'+i+'" data-ej="'+j+'">'+EXAM[i].a[j]+'</button>';
+    h+='</div>';
+  }
+  g('exam-body').innerHTML=h;
+  g('exam-tally').textContent='0 of 20 answered';g('exam-submit').disabled=true;
+  g('exam-body').querySelectorAll('.opt').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var ei=+this.dataset.ei,ej=+this.dataset.ej;
+      if(eAns[ei]!==undefined)return;eAns[ei]=ej;
+      g('exam-body').querySelectorAll('.opt[data-ei="'+ei+'"]').forEach(function(b){
+        b.disabled=true;var idx=+b.dataset.ej;
+        if(idx===EXAM[ei].c)b.classList.add('correct');
+        else if(idx===ej&&ej!==EXAM[ei].c)b.classList.add('wrong');
+      });
+      var n=Object.keys(eAns).length;
+      g('exam-tally').textContent=n+' of 20 answered';
+      g('exam-submit').disabled=n<20;
+    });
+  });
+  g('exam-submit').addEventListener('click',submitExam);
+}
+
+function submitExam(){
+  var score=0;for(var i=0;i<EXAM.length;i++){if(eAns[i]===EXAM[i].c)score++;}
+  var passed=score>=16,pct=Math.round(score/20*100),date=new Date().toLocaleString();
+  showPg('pg-result');
+  g('r-who').textContent=user.name+' — '+user.pos+' — '+user.loc;
+  g('r-ring').className='sring '+(passed?'pass':'fail');
+  g('r-score').textContent=score;
+  g('r-title').textContent=passed?'Congratulations — you passed!':'You did not pass this time';
+  g('r-msg').textContent=passed?'You scored '+score+' out of 20 ('+pct+'%). You have successfully completed the IRG Respectful Workplace & Harassment Prevention Training. Your results have been sent to your training coordinator.':'You scored '+score+' out of 20 ('+pct+'%). The passing score is 16 out of 20 (80%). Please review the training materials and contact your training coordinator to schedule your retake.';
+  g('r-retake').innerHTML=!passed?'<div class="retake"><strong>Retake required</strong>Score at least 16 out of 20 to pass. Review all 6 modules and contact your HR team. Per company policy you must wait 10 days before retaking.</div>':'';
+  var bkH='',wrong=[];
+  for(var j=0;j<EXAM.length;j++){
+    var cor=eAns[j]===EXAM[j].c;
+    if(!cor)wrong.push('Q'+(j+1)+': '+EXAM[j].q+' (answered: '+EXAM[j].a[eAns[j]]+', correct: '+EXAM[j].a[EXAM[j].c]+')');
+    bkH+='<div class="bki"><div class="bkic '+(cor?'p':'f')+'">'+(cor?'✓':'✗')+'</div><div><div class="bkq">Q'+(j+1)+': '+EXAM[j].q+'</div>'+(cor?'':'<div class="bka">Correct: '+EXAM[j].a[EXAM[j].c]+'</div>')+'</div></div>';
+  }
+  g('r-breakdown').innerHTML=bkH;
+  var st=g('r-status');st.className='sbox sending';st.classList.remove('hidden');st.textContent='Sending results to training coordinator...';
+  fetch('https://formspree.io/f/xwvjzbgy',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({
+    _subject:(passed?'✅ PASSED':'❌ FAILED')+' — IRG Harassment Training — '+user.name,
+    'Trainee Name':user.name,'Email':user.email,'Location':user.loc,'Position':user.pos,
+    'Date Completed':date,'Score':score+' / 20 ('+pct+'%)','Result':passed?'PASSED':'FAILED — Retake Required',
+    'Incorrect Answers ('+wrong.length+')':wrong.length===0?'None — perfect score!':wrong.join('\n')
+  })})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.ok){st.className='sbox ok';st.innerHTML='✓ Results sent to shavonne@irghospitality.com';}
+    else{st.className='sbox fail';st.innerHTML='⚠ Could not send automatically. Please screenshot this page and email to shavonne@irghospitality.com.';}
+  })
+  .catch(function(){st.className='sbox fail';st.innerHTML='⚠ Could not send automatically. Please screenshot and email to shavonne@irghospitality.com.';});
+}
+})();
+</script>
+</body>
+</html>
